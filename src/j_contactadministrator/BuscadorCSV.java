@@ -27,7 +27,7 @@ public class BuscadorCSV extends Thread{
 //        try{
 //            System.out.println("Se estan buscando archivos de extension .csv ...");
             
-        File ruta = new File("E:\\Franco\\JAVA\\PROYECTOS\\J_ContactAdministrator");
+        File ruta = new File("D:\\Franco\\JAVA\\Proyectos\\J_ContactAdministrator");
         String[] archivos = ruta.list();
         
         int contador = 0;//variable auxiliar   
@@ -55,7 +55,7 @@ public class BuscadorCSV extends Thread{
         BufferedReader br = null;
 
         try{
-          File ruta2 = new File("E:\\Franco\\JAVA\\PROYECTOS\\J_ContactAdministrator\\Contactos.csv");  
+          File ruta2 = new File("D:\\Franco\\JAVA\\Proyectos\\J_ContactAdministrator\\Contactos.csv");  
           FileReader fr = new FileReader(ruta2);
           br = new BufferedReader(fr);
           
@@ -94,8 +94,8 @@ public class BuscadorCSV extends Thread{
               //Nos preparamos para realizar la copia del archivo ya almacenado
               File rutaOriginalFichero;
               File rutaDestinoFichero;
-              rutaOriginalFichero= new File("E:\\Franco\\JAVA\\PROYECTOS\\J_ContactAdministrator\\Contactos.csv");
-              rutaDestinoFichero = new File("E:\\Franco\\JAVA\\PROYECTOS\\J_ContactAdministrator\\ContactosLeidos\\Contactos.csv");
+              rutaOriginalFichero= new File("D:\\Franco\\JAVA\\Proyectos\\J_ContactAdministrator\\Contactos.csv");
+              rutaDestinoFichero = new File("D:\\Franco\\JAVA\\Proyectos\\J_ContactAdministrator\\ContactosLeidos\\Contactos.csv");
               
               InputStream in = new FileInputStream(rutaOriginalFichero);
               OutputStream out = new FileOutputStream(rutaDestinoFichero);
@@ -138,20 +138,6 @@ public class BuscadorCSV extends Thread{
         } catch (InterruptedException ex) {
             Logger.getLogger(BuscadorCSV.class.getName()).log(Level.SEVERE, null, ex);
         }
-    //--------------------------------------------------------------------------
-    //Probando lectura de datos a traves de java.nio
-//    Path p = Paths.get("E:\\Franco\\JAVA\\PROYECTOS\\J_ContactAdministrator");
-//        try {
-//            DirectoryStream <Path> a = Files.newDirectoryStream(p, "*.csv");
-//            FileInputStream fi = new FileInputStream((File) a);
-//            for(Path entry : a){
-//                sr.
-//                
-//            }
-//        } catch (IOException ex) {
-//            Logger.getLogger(BuscadorCSV.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-    //--------------------------------------------------------------------------
     }
     }
     /*
@@ -160,5 +146,4 @@ public class BuscadorCSV extends Thread{
     public void detener(){
     continuador = false;
     }
-
 }
