@@ -23,7 +23,7 @@ public class SQLServer_AgendaDAO implements AgendaDAO {
     final String DELETE = "DELETE FROM CONTACTOS WHERE NOMBRE = ?";
     final String DELETEALL = "DELETE FROM CONTACTOS";
     final String UPDATE = "UPDATE CONTACTOS SET NOMBRE = ?, APELLIDO = ?, ALIAS = ?, MAIL = ?, DIRECCION = ?, NUMERO = ? WHERE NOMBRE = ?";
-    final String GETALL = "SELECT * FROM CONTACTOS FETCH FIRST 5 ROWS ONLY";
+    final String GETALL = "SELECT * FROM CONTACTOS";
      
     
 /*
@@ -120,7 +120,7 @@ public class SQLServer_AgendaDAO implements AgendaDAO {
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(GETALL);){
             
-            System.out.println("----------DATOS AlMACENADOS EN JAVA DB----------");
+            System.out.println("----------DATOS AlMACENADOS EN SQL Server----------");
             
             StringBuilder sb = new StringBuilder();
 

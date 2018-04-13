@@ -12,7 +12,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.apache.derby.jdbc.ClientDriver;
 
 /**
  *
@@ -28,11 +27,11 @@ public class Singleton_ConexionSQLServer {
     */
     //CONSTRUCTOR
     private Singleton_ConexionSQLServer (){
-        try {
-            DriverManager.registerDriver(new ClientDriver());
-        } catch (SQLException ex) {
-            Logger.getLogger(Singleton_ConexionSQLServer.class.getName()).log(Level.SEVERE, null, ex);
-        }
+            try {
+                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(Singleton_ConexionSQLServer.class.getName()).log(Level.SEVERE, null, ex);
+            }
     }
     
     /*
@@ -48,7 +47,7 @@ public class Singleton_ConexionSQLServer {
     */
     //METODO PARA CONECTAR CON SQL SERVER
     public Connection getConexionSQL() throws SQLException {
-      Connection con = DriverManager.getConnection("jdbc:sqlserver://DESKTOP-FRANCO:1433;databaseName=J_ContactAdministrator [sa on dbo]");
+      Connection con = DriverManager.getConnection("jdbc:sqlserver://DESKTOP-FRANCO:1433;databaseName=J_ContactAdministrator", "sa", "123");
         try( 
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM CONTACTOS");){
