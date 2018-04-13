@@ -9,9 +9,9 @@ package j_contactadministrator;
  *
  * @author Franco Gallo
  */
-public class JavaDB_AgendaDAOFactory {
+public class AgendaDAOFactory {
     
     public AgendaDAO createJavaDB_AgendaDAO(){
-        return new JavaDB_AgendaDAO();
+        return new SQLServer_AgendaDAO();
     }
 }
