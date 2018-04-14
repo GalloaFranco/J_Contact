@@ -23,7 +23,7 @@ public class J_ContactAdministrator {
         System.out.println("----------J_ContactAdministrator----------");
 
         AgendaDAOFactory factory = new AgendaDAOFactory();          
-        AgendaDAO agenda = factory.createJavaDB_AgendaDAO();
+        AgendaDAO agenda = factory.createSQLServer_AgendaDAO();
         BuscadorCSV buscadorCsv = new BuscadorCSV();
         
         boolean salirOp1 = false;

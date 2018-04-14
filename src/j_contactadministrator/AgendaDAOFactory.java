@@ -12,6 +12,10 @@ package j_contactadministrator;
 public class AgendaDAOFactory {
     
     public AgendaDAO createJavaDB_AgendaDAO(){
+        return new JavaDB_AgendaDAO();
+    }
+    
+    public AgendaDAO createSQLServer_AgendaDAO(){
         return new SQLServer_AgendaDAO();
     }
 }
