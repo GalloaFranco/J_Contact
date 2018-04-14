@@ -50,7 +50,7 @@ public class BuscadorCSV extends Thread{
         
         //Se crea una instancia de la clase encargada de la persistencia de datos
         AgendaDAOFactory factory = new AgendaDAOFactory();
-        AgendaDAO agendaParaImportaciones = factory.createJavaDB_AgendaDAO();
+        AgendaDAO agendaParaImportaciones = factory.createSQLServer_AgendaDAO();
         
         BufferedReader br = null;
 
