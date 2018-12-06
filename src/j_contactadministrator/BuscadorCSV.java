@@ -32,61 +32,53 @@ public class BuscadorCSV extends Thread{
 
         try{
             File ruta2 = new File("D:\\Franco\\JAVA\\PROYECTOS NETBEANS\\J_ContactAdministrator\\Contactos.csv");  
-            FileReader fr = new FileReader(ruta2);
-            br = new BufferedReader(fr);
-          
-            boolean salidor = true;
-
-                while(salidor){
-                
-                //Lectura de la linea entera
-                String line = br.readLine();
-              
-                if(line != null){
-                
-                //division de la linea por coma mediante el metodo split
-                String[] campos = line.split(";");
-              
+            File rutaOriginalFichero;
+            try (FileReader fr = new FileReader(ruta2)) {
+                br = new BufferedReader(fr);
+                boolean salidor = true;
+                while (salidor) {
+                    //Lectura de la linea entera
+                    String line = br.readLine();
+                    
+                    if(line != null){
+                        
+                        //division de la linea por coma mediante el metodo split
+                        String[] campos = line.split(";");
+                        
 //              System.out.println("Datos encontrados en el archivo: ");
 //              System.out.println(Arrays.toString(campos));
-              
-                String nombre = campos[0];
-                String apellido = campos[1];
-                String alias = campos[2];
-                String mail = campos[3];
-                String direccion = campos[4];
-                String numero = campos[5];
-              
-                //Se instancia un Contacto con las variables reunidas del array campos 
-                Contacto contactoImportado = new Contacto(nombre, apellido, alias, mail, direccion, numero);
-                //Se agrega el contacto al sistema de persistencia del programa
-                agendaParaImportaciones.addContacto(contactoImportado);
-            
-                } else {
-                salidor = false;
+
+String nombre = campos[0];
+String apellido = campos[1];
+String alias = campos[2];
+String mail = campos[3];
+String direccion = campos[4];
+String numero = campos[5];
+
+//Se instancia un Contacto con las variables reunidas del array campos
+Contacto contactoImportado = new Contacto(nombre, apellido, alias, mail, direccion, numero);
+//Se agrega el contacto al sistema de persistencia del programa
+agendaParaImportaciones.addContacto(contactoImportado);
+
+                    } else {
+                        salidor = false;
+                    }
                 }
-                }
-           
-        //-------------------------COPIA DEL ARCHIVO----------------------------
-        
-            File rutaOriginalFichero;
-            File rutaDestinoFichero;
-            rutaOriginalFichero= new File("D:\\Franco\\JAVA\\PROYECTOS NETBEANS\\J_ContactAdministrator\\Contactos.csv");
-            rutaDestinoFichero = new File("D:\\Franco\\JAVA\\PROYECTOS NETBEANS\\J_ContactAdministrator\\ContactosLeidos\\Contactos.csv");
-              
-            InputStream in = new FileInputStream(rutaOriginalFichero);
-            OutputStream out = new FileOutputStream(rutaDestinoFichero);
-              
-            //Usamos un buffer para la copia
-            byte[] buf = new byte[1024];
-            int len;
-            while ((len = in.read(buf)) > 0) {
-                out.write(buf, 0, len);
+                //-------------------------COPIA DEL ARCHIVO----------------------------
+                File rutaDestinoFichero;
+                rutaOriginalFichero= new File("D:\\Franco\\JAVA\\PROYECTOS NETBEANS\\J_ContactAdministrator\\Contactos.csv");
+                rutaDestinoFichero = new File("D:\\Franco\\JAVA\\PROYECTOS NETBEANS\\J_ContactAdministrator\\ContactosLeidos\\Contactos.csv");
+                InputStream in = new FileInputStream(rutaOriginalFichero);
+                OutputStream out = new FileOutputStream(rutaDestinoFichero);
+                //Usamos un buffer para la copia
+                byte[] buf = new byte[1024];
+                int len;
+                while ((len = in.read(buf)) > 0) {
+                    out.write(buf, 0, len);
+                }   in.close();
+                out.close();
+                //cerramos el FileReader para poder borrar el archivo
             }
-            in.close();
-            out.close();
-              
-            fr.close();//cerramos el FileReader para poder borrar el archivo
             
         //----------------------BORRAR ARCHIVO ORIGINAL-------------------------    
               

@@ -56,10 +56,11 @@ public class Contacto implements Serializable {
         
         this.direccionPostal = direccionPostal.toUpperCase();
         
-        if(validateNumer(numeroTelefonico))
+        if(validateNumer(numeroTelefonico)){
         this.numeroTelefonico = numeroTelefonico.toUpperCase();
-        else
+        } else {
             throw new InvalidTelephoneNumberException("Cargo datos invalidos en el numero telefonico, reviselo");
+        }
         
     }
 
