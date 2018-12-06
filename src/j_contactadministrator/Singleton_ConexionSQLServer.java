@@ -47,10 +47,10 @@ public class Singleton_ConexionSQLServer {
     */
     //METODO PARA CONECTAR CON SQL SERVER
     public Connection getConexionSQL() throws SQLException {
-      Connection con = DriverManager.getConnection("jdbc:sqlserver://DESKTOP-FRANCO:1433;databaseName=J_ContactAdministrator", "sa", "123");
+      Connection con = DriverManager.getConnection("jdbc:sqlserver://DESKTOP-FRANCO:1433;databaseName=J_ContactAdministrator", "sa", "110254");
         try( 
             Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM CONTACTOS");){
+            ResultSet rs = stmt.executeQuery("SELECT * FROM PEDIDOS");){
       
         }catch (SQLException se){
                 se.getMessage();

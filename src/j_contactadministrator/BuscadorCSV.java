@@ -31,7 +31,7 @@ public class BuscadorCSV extends Thread{
         BufferedReader br = null;
 
         try{
-            File ruta2 = new File("D:\\Franco\\JAVA\\Proyectos\\J_ContactAdministrator\\Contactos.csv");  
+            File ruta2 = new File("D:\\Franco\\JAVA\\PROYECTOS NETBEANS\\J_ContactAdministrator\\Contactos.csv");  
             FileReader fr = new FileReader(ruta2);
             br = new BufferedReader(fr);
           
@@ -71,8 +71,8 @@ public class BuscadorCSV extends Thread{
         
             File rutaOriginalFichero;
             File rutaDestinoFichero;
-            rutaOriginalFichero= new File("D:\\Franco\\JAVA\\Proyectos\\J_ContactAdministrator\\Contactos.csv");
-            rutaDestinoFichero = new File("D:\\Franco\\JAVA\\Proyectos\\J_ContactAdministrator\\ContactosLeidos\\Contactos.csv");
+            rutaOriginalFichero= new File("D:\\Franco\\JAVA\\PROYECTOS NETBEANS\\J_ContactAdministrator\\Contactos.csv");
+            rutaDestinoFichero = new File("D:\\Franco\\JAVA\\PROYECTOS NETBEANS\\J_ContactAdministrator\\ContactosLeidos\\Contactos.csv");
               
             InputStream in = new FileInputStream(rutaOriginalFichero);
             OutputStream out = new FileOutputStream(rutaDestinoFichero);

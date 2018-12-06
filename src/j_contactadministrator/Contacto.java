@@ -62,6 +62,12 @@ public class Contacto implements Serializable {
             throw new InvalidTelephoneNumberException("Cargo datos invalidos en el numero telefonico, reviselo");
         
     }
+
+    public Contacto(String nombre) {
+        
+        this.nombre = nombre;
+    }
+    
 /*
      ***************************************************************************
      */
