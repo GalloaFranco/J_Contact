@@ -47,7 +47,11 @@ public class Singleton_ConexionSQLServer {
     */
     //METODO PARA CONECTAR CON SQL SERVER
     public Connection getConexionSQL() throws SQLException {
-      Connection con = DriverManager.getConnection("jdbc:sqlserver://DESKTOP-FRANCO:1433;databaseName=J_ContactAdministrator", "sa", "110254");
+        
+        final String user = "sa";
+        final String password = "110254";
+        
+      Connection con = DriverManager.getConnection("jdbc:sqlserver://DESKTOP-FRANCO:1433;databaseName=J_ContactAdministrator", user, password);
         try( 
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM PEDIDOS");){
