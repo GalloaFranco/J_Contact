@@ -68,9 +68,10 @@ agendaParaImportaciones.addContacto(contactoImportado);
                 File rutaDestinoFichero;
                 rutaOriginalFichero= new File("D:\\Franco\\JAVA\\PROYECTOS NETBEANS\\J_ContactAdministrator\\Contactos.csv");
                 rutaDestinoFichero = new File("D:\\Franco\\JAVA\\PROYECTOS NETBEANS\\J_ContactAdministrator\\ContactosLeidos\\Contactos.csv");
-                OutputStream out;
-                try (InputStream in = new FileInputStream(rutaOriginalFichero)) {
-                    out = new FileOutputStream(rutaDestinoFichero);
+
+                try (InputStream in = new FileInputStream(rutaOriginalFichero); 
+                     OutputStream out = new FileOutputStream(rutaDestinoFichero)){
+                    
                     //Usamos un buffer para la copia
                     byte[] buf = new byte[1024];
                     int len;
@@ -78,8 +79,6 @@ agendaParaImportaciones.addContacto(contactoImportado);
                         out.write(buf, 0, len);
                     }
                 }
-                out.close();
-                //cerramos el FileReader para poder borrar el archivo
             }
             
         //----------------------BORRAR ARCHIVO ORIGINAL-------------------------    
