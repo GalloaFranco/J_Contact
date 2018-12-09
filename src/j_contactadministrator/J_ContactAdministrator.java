@@ -19,13 +19,11 @@ public class J_ContactAdministrator {
     /**
      * @param args the command line arguments
      */
-    private static final Logger LOGGER = Logger.getLogger("User.Control");
     
     public static void main(String[] args) {
         //----------------------------------------------------------------------
         
-        LOGGER.log(Level.INFO,"----------J_ContactAdministrator----------");
-        //System.out.println("----------J_ContactAdministrator----------");
+        System.out.println("----------J_ContactAdministrator----------");
 
         AgendaDAOFactory factory = new AgendaDAOFactory();          
         AgendaDAO agenda = factory.createSQLServer_AgendaDAO();
