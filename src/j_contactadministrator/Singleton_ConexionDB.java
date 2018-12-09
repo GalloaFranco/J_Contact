@@ -44,11 +44,11 @@ public class Singleton_ConexionDB {
      */
     public Connection getConexionDB() throws SQLException {
 
-//        System.out.println("Nos estamos conectando a la base de datos espere...");
-
-        Connection con = DriverManager.getConnection("jdbc:derby://localhost:1527/J_ContactDB", "Franco", "Franco");
+        final String user = "Franco";
+        final String password = "Franco";
 
         try (
+            Connection con = DriverManager.getConnection("jdbc:derby://localhost:1527/J_ContactDB", user, password);
                 Statement stmt = con.createStatement();
                 ResultSet rs = stmt.executeQuery("SELECT 1 FROM SYSIBM.SYSDUMMY1");) {
 
