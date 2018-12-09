@@ -100,7 +100,7 @@ public class BuscadorCSV extends Thread{
     /*
     ****************************************************************************
     */
-    private void sleeper() {
+    private void sleeper()  {
 
         try {
             //Hacemos descansar 1 segundo al hilo para no gastar recursos inecesarios a nuestra maquina
