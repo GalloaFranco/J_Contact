@@ -19,87 +19,89 @@ public class BuscadorCSV extends Thread{
     
     @Override
     public void run() {
-    
-    while(continuador){
 
-        //---------------------------IMPORTACION--------------------------------
-        
-        //Se crea una instancia de la clase encargada de la persistencia de datos
-        AgendaDAOFactory factory = new AgendaDAOFactory();
-        AgendaDAO agendaParaImportaciones = factory.createSQLServer_AgendaDAO();
-        
-        BufferedReader br = null;
+        while (continuador) {
 
-        try{
-            File ruta2 = new File("D:\\Franco\\JAVA\\PROYECTOS NETBEANS\\J_ContactAdministrator\\Contactos.csv");  
-            File rutaOriginalFichero;
-            try (FileReader fr = new FileReader(ruta2)) {
-                br = new BufferedReader(fr);
-                boolean salidor = true;
-                while (salidor) {
-                    //Lectura de la linea entera
-                    String line = br.readLine();
-                    
-                    if(line != null){
-                        
-                        //division de la linea por coma mediante el metodo split
-                        String[] campos = line.split(";");
-                        
-//              System.out.println("Datos encontrados en el archivo: ");
-//              System.out.println(Arrays.toString(campos));
+            //---------------------------IMPORTACION--------------------------------
+            //Se crea una instancia de la clase encargada de la persistencia de datos
+            AgendaDAOFactory factory = new AgendaDAOFactory();
+            AgendaDAO agendaParaImportaciones = factory.createSQLServer_AgendaDAO();
 
-String nombre = campos[0];
-String apellido = campos[1];
-String alias = campos[2];
-String mail = campos[3];
-String direccion = campos[4];
-String numero = campos[5];
+            BufferedReader br = null;
 
-//Se instancia un Contacto con las variables reunidas del array campos
-Contacto contactoImportado = new Contacto(nombre, apellido, alias, mail, direccion, numero);
-//Se agrega el contacto al sistema de persistencia del programa
-agendaParaImportaciones.addContacto(contactoImportado);
+            try {
+                File ruta2 = new File("D:\\Franco\\JAVA\\PROYECTOS NETBEANS\\J_ContactAdministrator\\Contactos.csv");
+                File rutaOriginalFichero;
+                try (FileReader fr = new FileReader(ruta2)) {
+                    br = new BufferedReader(fr);
+                    boolean salidor = true;
+                    while (salidor) {
+                        //Lectura de la linea entera
+                        String line = br.readLine();
 
-                    } else {
-                        salidor = false;
+                        if (line != null) {
+
+                            //division de la linea por coma mediante el metodo split
+                            String[] campos = line.split(";");
+
+                            String nombre = campos[0];
+                            String apellido = campos[1];
+                            String alias = campos[2];
+                            String mail = campos[3];
+                            String direccion = campos[4];
+                            String numero = campos[5];
+
+                            //Se instancia un Contacto con las variables reunidas del array campos
+                            Contacto contactoImportado = new Contacto(nombre, apellido, alias, mail, direccion, numero);
+                            //Se agrega el contacto al sistema de persistencia del programa
+                            agendaParaImportaciones.addContacto(contactoImportado);
+
+                        } else {
+                            salidor = false;
+                        }
+                    }
+                    //-------------------------COPIA DEL ARCHIVO----------------
+                    File rutaDestinoFichero;
+                    rutaOriginalFichero = new File("D:\\Franco\\JAVA\\PROYECTOS NETBEANS\\J_ContactAdministrator\\Contactos.csv");
+                    rutaDestinoFichero = new File("D:\\Franco\\JAVA\\PROYECTOS NETBEANS\\J_ContactAdministrator\\ContactosLeidos\\Contactos.csv");
+
+                    try (InputStream in = new FileInputStream(rutaOriginalFichero);
+                            OutputStream out = new FileOutputStream(rutaDestinoFichero)) {
+
+                        //Usamos un buffer para la copia
+                        byte[] buf = new byte[1024];
+                        int len;
+                        while ((len = in.read(buf)) > 0) {
+                            out.write(buf, 0, len);
+                        }
                     }
                 }
-                //-------------------------COPIA DEL ARCHIVO----------------------------
-                File rutaDestinoFichero;
-                rutaOriginalFichero= new File("D:\\Franco\\JAVA\\PROYECTOS NETBEANS\\J_ContactAdministrator\\Contactos.csv");
-                rutaDestinoFichero = new File("D:\\Franco\\JAVA\\PROYECTOS NETBEANS\\J_ContactAdministrator\\ContactosLeidos\\Contactos.csv");
 
-                try (InputStream in = new FileInputStream(rutaOriginalFichero); 
-                     OutputStream out = new FileOutputStream(rutaDestinoFichero)){
-                    
-                    //Usamos un buffer para la copia
-                    byte[] buf = new byte[1024];
-                    int len;
-                    while ((len = in.read(buf)) > 0) {
-                        out.write(buf, 0, len);
+                //----------------------BORRAR ARCHIVO ORIGINAL---------------------   
+                //Aqui generamos el delete para no volver a importar el mismo archivo
+                boolean borrarOriginal = rutaOriginalFichero.delete();
+
+            } catch (FileNotFoundException e) {
+                e.getMessage();
+            } catch (IOException | InvalidEmailException | InvalidTelephoneNumberException | InvalidNameException ex) {
+                ex.getMessage();
+            } finally {
+                if (br != null) {
+                    try {
+                        br.close();
+                    } catch (IOException ex) {
+                        ex.getMessage();
                     }
                 }
             }
-            
-        //----------------------BORRAR ARCHIVO ORIGINAL-------------------------    
-              
-            //Aqui generamos el delete para no volver a importar el mismo archivo
-            boolean borrarOriginal = rutaOriginalFichero.delete();
-        
-        }catch(FileNotFoundException e){
-            e.getMessage();
-        }catch (IOException | InvalidEmailException | InvalidTelephoneNumberException | InvalidNameException ex) {
-            ex.getMessage();
-        }finally{
-            if(br != null){
-                try {
-                    br.close();
-                } catch (IOException ex) {
-                    ex.getMessage();
-                }
-            }
+            sleeper();
         }
-        //----------------------------------------------------------------------
+    }
+    /*
+    ****************************************************************************
+    */
+    private void sleeper() {
+
         try {
             //Hacemos descansar 1 segundo al hilo para no gastar recursos inecesarios a nuestra maquina
             BuscadorCSV.sleep(2000);
@@ -107,12 +109,9 @@ agendaParaImportaciones.addContacto(contactoImportado);
             Logger.getLogger(BuscadorCSV.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    }
     /*
-    ****************************************************************************
+    ***************************************************************************
     */
-    
-    //METODO PARA DETENER EL THREAD
     public void detener(){
     continuador = false;
     }
