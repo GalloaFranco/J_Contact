@@ -49,30 +49,7 @@ public class J_ContactAdministrator {
                 switch(opcionMenuInicial){
 //------------------------------------------------------------------------------                    
                     case 1 :
-                            try{
-                            System.out.println(" ");
-                            System.out.println("Ingrese el nombre de su nuevo contacto:");
-                                String nombre = Consola.readLine();
-                            System.out.println("Ahora el apellido:");
-                                String apellido = Consola.readLine();
-                            System.out.println("Ahora el apodo, en caso de tenerlo:");
-                                String alias = Consola.readLine();
-                            System.out.println("Ahora el mail");
-                                String email = Consola.readLine();
-                            System.out.println("Ahora su direccion postal:");   
-                                String direccionPostal = Consola.readLine();
-                            System.out.println("Por ultimo el numero de telefono:");    
-                                String numeroTelefonico = Consola.readLine();
-                                System.out.println(" ");
-
-                            Contacto c = new Contacto(nombre, apellido, alias, email, direccionPostal, numeroTelefonico);
-                            agenda.addContacto(c);
-                            salirOp2 = true;
-                               
-                            } catch(InvalidEmailException | InvalidTelephoneNumberException | InvalidNameException e){
-                                System.err.println(e.getMessage());
-                            }
-
+                                cargarContacto(agenda);
                         break;
 //------------------------------------------------------------------------------                        
                     case 2 :    agenda.mostrar();
@@ -97,11 +74,7 @@ public class J_ContactAdministrator {
                             System.out.println(" ");
                         
                     
-                            try {
-                            agenda.modificarContacto(nombre, apellido, alias, email, direccionPostal, numeroTelefonico, indice);
-                            } catch (InvalidEmailException | InvalidTelephoneNumberException | InvalidNameException ex) {
-                            System.err.println(ex.getMessage());
-                            }
+                            modificacionContacto(agenda, nombre, apellido, alias, email, direccionPostal, numeroTelefonico, indice);
                 
                         break;
 //------------------------------------------------------------------------------
@@ -143,6 +116,41 @@ public class J_ContactAdministrator {
         
         
     
+    }
+
+    private static void modificacionContacto(AgendaDAO agenda, String nombre, String apellido, String alias, String email, String direccionPostal, String numeroTelefonico, String indice) {
+        try {
+            agenda.modificarContacto(nombre, apellido, alias, email, direccionPostal, numeroTelefonico, indice);
+        } catch (InvalidEmailException | InvalidTelephoneNumberException | InvalidNameException ex) {
+            System.err.println(ex.getMessage());
+        }
+    }
+
+    private static void cargarContacto(AgendaDAO agenda) {
+        boolean salirOp2;
+        try{
+            System.out.println(" ");
+            System.out.println("Ingrese el nombre de su nuevo contacto:");
+            String nombre = Consola.readLine();
+            System.out.println("Ahora el apellido:");
+            String apellido = Consola.readLine();
+            System.out.println("Ahora el apodo, en caso de tenerlo:");
+            String alias = Consola.readLine();
+            System.out.println("Ahora el mail");
+            String email = Consola.readLine();
+            System.out.println("Ahora su direccion postal:");
+            String direccionPostal = Consola.readLine();
+            System.out.println("Por ultimo el numero de telefono:");
+            String numeroTelefonico = Consola.readLine();
+            System.out.println(" ");
+            
+            Contacto c = new Contacto(nombre, apellido, alias, email, direccionPostal, numeroTelefonico);
+            agenda.addContacto(c);
+            salirOp2 = true;
+            
+        } catch(InvalidEmailException | InvalidTelephoneNumberException | InvalidNameException e){
+            System.err.println(e.getMessage());
+        }
     }
 }
 
