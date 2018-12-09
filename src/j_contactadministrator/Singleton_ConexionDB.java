@@ -48,11 +48,10 @@ public class Singleton_ConexionDB {
         final String password = "Franco";
 
         try (
-            Connection con = DriverManager.getConnection("jdbc:derby://localhost:1527/J_ContactDB", user, password);
+                Connection con = DriverManager.getConnection("jdbc:derby://localhost:1527/J_ContactDB", user, password);
                 Statement stmt = con.createStatement();
                 ResultSet rs = stmt.executeQuery("SELECT 1 FROM SYSIBM.SYSDUMMY1");) {
 
-//            System.out.println("Conexion lista");
             return con;
         } catch (SQLException se) {
             System.err.println("Error al conectar con la base de datos");

@@ -23,7 +23,6 @@ public class  JavaDB_AgendaDAO implements AgendaDAO {
      final String DELETEALL = "DELETE FROM CONTACTOS";
      final String UPDATE = "UPDATE CONTACTOS SET NOMBRE = ?, APELLIDO = ?, ALIAS = ?, MAIL = ?, DIRECCION = ?, NUMERO = ? WHERE NOMBRE = ?";
      final String GETALL = "SELECT * FROM CONTACTOS FETCH FIRST 5 ROWS ONLY";
-//     final String GETONE = "SELECT FROM CONTACTOS WHERE NOMBRE = ?";
      
     
 /*
@@ -31,58 +30,57 @@ public class  JavaDB_AgendaDAO implements AgendaDAO {
     */   
     @Override
     public void addContacto(Contacto c) {
-        
+
         try (Connection con = Singleton_ConexionDB.getConexionClass().getConexionDB();
-            PreparedStatement stmt = con.prepareStatement(INSERT);){
-            
+                PreparedStatement stmt = con.prepareStatement(INSERT);) {
+
             stmt.setString(1, c.getNombre());
-            stmt.setString(2,c.getApellido());
+            stmt.setString(2, c.getApellido());
             stmt.setString(3, c.getAlias());
-            stmt.setString(4,c.getEmail());
+            stmt.setString(4, c.getEmail());
             stmt.setString(5, c.getDireccionPostal());
-            stmt.setString(6,c.getNumeroTelefonico());
-            
-            if(c.getEmail() != null && c.getNumeroTelefonico() != null && c.getNombre()!= null && c.getApellido() != null){
-            stmt.executeUpdate();
-            //System.out.println("Se insterto el contacto!");
+            stmt.setString(6, c.getNumeroTelefonico());
+
+            if (c.getEmail() != null && c.getNumeroTelefonico() != null && c.getNombre() != null && c.getApellido() != null) {
+                stmt.executeUpdate();
             } else {
                 System.err.println("Algunos datos del contacto son nulos, reviselo en :"
-                + c.getNombre());
+                        + c.getNombre());
             }
-        
+
         } catch (SQLException ex) {
             Logger.getLogger(JavaDB_AgendaDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        }
+
+    }
     
 /*
     ****************************************************************************
     */
     @Override
     public void modificarContacto(String nombre, String apellido, String alias, String email, String direccionpostal,
-    String numerotelefonico, String indice)throws InvalidEmailException, InvalidTelephoneNumberException, InvalidNameException {
-            
-            Contacto contacto = new Contacto(nombre, apellido, alias, email, direccionpostal, numerotelefonico);
-            
+            String numerotelefonico, String indice) throws InvalidEmailException, InvalidTelephoneNumberException, InvalidNameException {
+
+        Contacto contacto = new Contacto(nombre, apellido, alias, email, direccionpostal, numerotelefonico);
+
         try (Connection con = Singleton_ConexionDB.getConexionClass().getConexionDB();
-            PreparedStatement stmt = con.prepareStatement(UPDATE);){
-            
-            stmt.setString(1,contacto.getNombre());
-            stmt.setString(2,contacto.getApellido());
-            stmt.setString(3,contacto.getAlias());
-            stmt.setString(4,contacto.getEmail());
-            stmt.setString(5,contacto.getDireccionPostal());
-            stmt.setString(6,contacto.getNumeroTelefonico());
-            stmt.setString(7,indice.toUpperCase());
+                PreparedStatement stmt = con.prepareStatement(UPDATE);) {
+
+            stmt.setString(1, contacto.getNombre());
+            stmt.setString(2, contacto.getApellido());
+            stmt.setString(3, contacto.getAlias());
+            stmt.setString(4, contacto.getEmail());
+            stmt.setString(5, contacto.getDireccionPostal());
+            stmt.setString(6, contacto.getNumeroTelefonico());
+            stmt.setString(7, indice.toUpperCase());
             stmt.executeUpdate();
             System.out.println("Se modifico el contacto!");
-        
+
         } catch (SQLException ex) {
             Logger.getLogger(JavaDB_AgendaDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        }
-    
+    }
+
 /*
     ****************************************************************************
     */

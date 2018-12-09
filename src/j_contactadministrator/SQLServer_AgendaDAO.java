@@ -44,7 +44,6 @@ public class SQLServer_AgendaDAO implements AgendaDAO {
             
             if(c.getEmail() != null && c.getNumeroTelefonico() != null && c.getNombre()!= null && c.getApellido() != null){
             stmt.executeUpdate();
-            //System.out.println("Se insterto el contacto!");
             } else {
                 System.err.println("Algunos datos del contacto son nulos, reviselo en :"
                 + c.getNombre());
