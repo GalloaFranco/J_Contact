@@ -6,6 +6,8 @@
 package j_contactadministrator;
 
 import java.util.InputMismatchException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import utils.Consola;
 
 /**
@@ -17,10 +19,13 @@ public class J_ContactAdministrator {
     /**
      * @param args the command line arguments
      */
+    private static final Logger LOGGER = Logger.getLogger("User.Control");
+    
     public static void main(String[] args) {
         //----------------------------------------------------------------------
         
-        System.out.println("----------J_ContactAdministrator----------");
+        LOGGER.log(Level.INFO,"----------J_ContactAdministrator----------");
+        //System.out.println("----------J_ContactAdministrator----------");
 
         AgendaDAOFactory factory = new AgendaDAOFactory();          
         AgendaDAO agenda = factory.createSQLServer_AgendaDAO();
