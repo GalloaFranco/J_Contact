@@ -49,9 +49,8 @@ public class Singleton_ConexionSQLServer {
         final String user = "sa";
         final String password = "110254";
 
-        Connection con = DriverManager.getConnection("jdbc:sqlserver://DESKTOP-FRANCO:1433;databaseName=J_ContactAdministrator", user, password);
+        return DriverManager.getConnection("jdbc:sqlserver://DESKTOP-FRANCO:1433;databaseName=J_ContactAdministrator", user, password);
 
-        return con;
     }
     
     
