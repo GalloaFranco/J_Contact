@@ -7,6 +7,7 @@ package j_contactadministrator;
 
 import java.io.*;
 import java.io.File;
+import java.nio.file.Files;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 /**
@@ -79,7 +80,7 @@ public class BuscadorCSV extends Thread{
 
                 //----------------------BORRAR ARCHIVO ORIGINAL---------------------   
                 //Aqui generamos el delete para no volver a importar el mismo archivo
-                boolean borrarOriginal = rutaOriginalFichero.delete();
+               Files.delete(rutaOriginalFichero.toPath());
 
             } catch (FileNotFoundException e) {
                 e.getMessage();
@@ -107,6 +108,7 @@ public class BuscadorCSV extends Thread{
             BuscadorCSV.sleep(2000);
         } catch (InterruptedException ex) {
             Logger.getLogger(BuscadorCSV.class.getName()).log(Level.SEVERE, null, ex);
+            BuscadorCSV.interrupted();
         }
     }
     /*

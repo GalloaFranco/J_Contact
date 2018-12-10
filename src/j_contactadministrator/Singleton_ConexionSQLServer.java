@@ -51,15 +51,9 @@ public class Singleton_ConexionSQLServer {
         final String user = "sa";
         final String password = "110254";
 
-        try (
-                Connection con = DriverManager.getConnection("jdbc:sqlserver://DESKTOP-FRANCO:1433;databaseName=J_ContactAdministrator", user, password);
-                Statement stmt = con.createStatement();
-                ResultSet rs = stmt.executeQuery("SELECT * FROM PEDIDOS");) {
+        Connection con = DriverManager.getConnection("jdbc:sqlserver://DESKTOP-FRANCO:1433;databaseName=J_ContactAdministrator", user, password);
 
-                return con;
-        } catch (SQLException se) {
-            throw  se;
-        }
+        return con;
     }
     
     
