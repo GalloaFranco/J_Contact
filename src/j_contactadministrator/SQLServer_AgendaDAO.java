@@ -183,7 +183,7 @@ public class SQLServer_AgendaDAO implements AgendaDAO {
             String direccion = rs.getString("DIRECCION");
             String numero = rs.getString("NUMERO");
             
-            if(nombre.equals(nom.toUpperCase())){
+            if(nombre.equalsIgnoreCase(nom)){
                 sb.append(nombre);
                 sb.append("\n");
                 sb.append(apellido);
