@@ -52,13 +52,13 @@ public class Singleton_ConexionSQLServer {
         final String password = "110254";
 
         Connection con = DriverManager.getConnection("jdbc:sqlserver://DESKTOP-FRANCO:1433;databaseName=J_ContactAdministrator", user, password);
-        try (
-                Statement stmt = con.createStatement();
-                ResultSet rs = stmt.executeQuery("SELECT * FROM PEDIDOS");) {
-
-        } catch (SQLException se) {
-            se.getMessage();
-        }
+//        try (
+//                Statement stmt = con.createStatement();
+//                ResultSet rs = stmt.executeQuery("SELECT * FROM PEDIDOS");) {
+//
+//        } catch (SQLException se) {
+//            se.getMessage();
+//        }
         return con;
     }
     

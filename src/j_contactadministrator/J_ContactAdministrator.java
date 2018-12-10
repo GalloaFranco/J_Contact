@@ -49,7 +49,7 @@ public class J_ContactAdministrator {
                 switch (opcionMenuInicial) {
 //------------------------------------------------------------------------------                    
                     case 1:
-                        salirOp2 = changerAsTrue(salirOp2);
+                          salirOp2 = true;
                         cargarContacto(agenda);
                         break;
 //------------------------------------------------------------------------------                        
@@ -101,7 +101,7 @@ public class J_ContactAdministrator {
 //------------------------------------------------------------------------------                        
                     case 7:
                         buscadorCsv.detener();
-                        salirOp1 = changerAsTrue(salirOp1);
+                          salirOp1 = true;
                         break;
 //------------------------------------------------------------------------------                        
                     default:
@@ -160,8 +160,5 @@ public class J_ContactAdministrator {
         }
     }
 
-    private static boolean changerAsTrue(boolean option) {
-        return option = true;
-    }
 }
 
