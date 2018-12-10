@@ -49,7 +49,7 @@ public class J_ContactAdministrator {
                 switch (opcionMenuInicial) {
 //------------------------------------------------------------------------------                    
                     case 1:
-                          salirOp2 = true;
+                        salirOp2 = true;
                         cargarContacto(agenda);
                         break;
 //------------------------------------------------------------------------------                        
