@@ -58,7 +58,7 @@ public class Singleton_ConexionSQLServer {
 
                 return con;
         } catch (SQLException se) {
-            se.getMessage();
+            throw  se;
         }
     }
     
