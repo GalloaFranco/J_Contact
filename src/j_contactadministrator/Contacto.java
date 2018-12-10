@@ -23,12 +23,12 @@ public class Contacto implements Serializable {
     private String numeroTelefonico = null;
     
     //Expresiones regulares de validacion
-    private final String validadorMail = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+    private static final String EMAIL_VALIDATOR = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
     + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
     
-    private final String validadorNumero = "^[+-]?\\d+(\\.\\d+)?$";
+    private static final String NUMBER_VALIDATOR = "^[+-]?\\d+(\\.\\d+)?$";
     
-    private final String validadorNombres = "[a-zA-Z]*";
+    private static final String NAMES_VALIDATOR = "[a-zA-Z]*";
 /*
     ****************************************************************************
     */
@@ -147,7 +147,7 @@ public class Contacto implements Serializable {
     */    
     public final boolean validateEmail(String email) {
  
-        Pattern pattern = Pattern.compile(validadorMail);
+        Pattern pattern = Pattern.compile(EMAIL_VALIDATOR);
  
         Matcher matcher = pattern.matcher(email);
         return matcher.matches();
@@ -158,7 +158,7 @@ public class Contacto implements Serializable {
     */    
     public final boolean validateNumer(String numero){
         
-        Pattern pattern = Pattern.compile(validadorNumero);
+        Pattern pattern = Pattern.compile(NUMBER_VALIDATOR);
         
         Matcher matcher = pattern.matcher(numero);
         return matcher.matches();
@@ -167,7 +167,7 @@ public class Contacto implements Serializable {
     ****************************************************************************
     */
     public final boolean validateNames(String nombre){
-        Pattern pattern = Pattern.compile(validadorNombres);
+        Pattern pattern = Pattern.compile(NAMES_VALIDATOR);
         
         Matcher matcher = pattern.matcher(nombre);
         return matcher.matches();

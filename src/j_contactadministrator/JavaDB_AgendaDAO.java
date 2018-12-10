@@ -18,11 +18,11 @@ import java.util.logging.*;
  */
 public class  JavaDB_AgendaDAO implements AgendaDAO {
     
-     final String INSERT = "INSERT INTO CONTACTOS(NOMBRE,APELLIDO,ALIAS,MAIL,DIRECCION,NUMERO) VALUES(?,?,?,?,?,?)";
-     final String DELETE = "DELETE FROM CONTACTOS WHERE NOMBRE = ?";
-     final String DELETEALL = "DELETE FROM CONTACTOS";
-     final String UPDATE = "UPDATE CONTACTOS SET NOMBRE = ?, APELLIDO = ?, ALIAS = ?, MAIL = ?, DIRECCION = ?, NUMERO = ? WHERE NOMBRE = ?";
-     final String GETALL = "SELECT * FROM CONTACTOS FETCH FIRST 5 ROWS ONLY";
+     static final String INSERT = "INSERT INTO CONTACTOS(NOMBRE,APELLIDO,ALIAS,MAIL,DIRECCION,NUMERO) VALUES(?,?,?,?,?,?)";
+     static final String DELETE = "DELETE FROM CONTACTOS WHERE NOMBRE = ?";
+     static final String DELETEALL = "DELETE FROM CONTACTOS";
+     static final String UPDATE = "UPDATE CONTACTOS SET NOMBRE = ?, APELLIDO = ?, ALIAS = ?, MAIL = ?, DIRECCION = ?, NUMERO = ? WHERE NOMBRE = ?";
+     static final String GETALL = "SELECT * FROM CONTACTOS FETCH FIRST 5 ROWS ONLY";
      
     
 /*
