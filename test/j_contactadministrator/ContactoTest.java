@@ -106,21 +106,31 @@ public class ContactoTest {
 //     */
 //    @Test
 //    public void testValidateEmail() {
+//        
 //    }
-//
-//    /**
-//     * Test of validateNumer method, of class Contacto.
-//     */
-//    @Test
-//    public void testValidateNumer() {
-//    }
-//
-//    /**
-//     * Test of validateNames method, of class Contacto.
-//     */
+    
+        @Test
+    public void testValidateNumerFalse() {
+        Contacto c = new Contacto("Fernandito","Fernandito", "fernandito@gmail.com");
+        boolean esperado = false;
+        boolean actual = c.validateNumer(c.getNumeroTelefonico());
+        
+        assertEquals(esperado, actual);
+    }
+
+    @Test
+    public void testValidateNumerTrue() {
+        Contacto c = new Contacto("Fernandito","12345678", "fernandito@gmail.com");
+        boolean esperado = true;
+        boolean actual = c.validateNumer(c.getNumeroTelefonico());
+        
+        assertEquals(esperado, actual);
+    }
+
+
     @Test
     public void testValidateNamesTrue() {
-        Contacto c = new Contacto("Fernandito");
+        Contacto c = new Contacto("Fernandito","12345678", "fernandito@gmail.com");
         boolean esperado = true;
         boolean actual = c.validateNames(c.getNombre());
         
@@ -129,7 +139,7 @@ public class ContactoTest {
     
     @Test
     public void testValidateNamesFalse() {
-        Contacto c = new Contacto("123456");
+        Contacto c = new Contacto("12345678","12345678", "fernandito@gmail.com");
         boolean esperado = false;
         boolean actual = c.validateNames(c.getNombre());
         

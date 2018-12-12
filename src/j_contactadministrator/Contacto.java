@@ -64,11 +64,12 @@ public class Contacto implements Serializable {
         
     }
 
-    public Contacto(String nombre) {
+    public Contacto(String nombre, String numero, String email) {
         
         this.nombre = nombre;
-    }
-    
+        this.numeroTelefonico = numero;
+        this.email = email;
+    }   
 /*
      ***************************************************************************
      */
