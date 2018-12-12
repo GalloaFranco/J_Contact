@@ -20,105 +20,28 @@ public class ContactoTest {
     public ContactoTest() {
     }
     
-//    /**
-//     * Test of getNombre method, of class Contacto.
-//     */
-//    @Test
-//    public void testGetNombre() {
-//    }
-//
-//    /**
-//     * Test of getApellido method, of class Contacto.
-//     */
-//    @Test
-//    public void testGetApellido() {
-//    }
-//
-//    /**
-//     * Test of getAlias method, of class Contacto.
-//     */
-//    @Test
-//    public void testGetAlias() {
-//    }
-//
-//    /**
-//     * Test of getEmail method, of class Contacto.
-//     */
-//    @Test
-//    public void testGetEmail() {
-//    }
-//
-//    /**
-//     * Test of getDireccionPostal method, of class Contacto.
-//     */
-//    @Test
-//    public void testGetDireccionPostal() {
-//    }
-//
-//    /**
-//     * Test of getNumeroTelefonico method, of class Contacto.
-//     */
-//    @Test
-//    public void testGetNumeroTelefonico() {
-//    }
-//
-//    /**
-//     * Test of setNombre method, of class Contacto.
-//     */
-//    @Test
-//    public void testSetNombre() {
-//    }
-//
-//    /**
-//     * Test of setApellido method, of class Contacto.
-//     */
-//    @Test
-//    public void testSetApellido() {
-//    }
-//
-//    /**
-//     * Test of setAlias method, of class Contacto.
-//     */
-//    @Test
-//    public void testSetAlias() {
-//    }
-//
-//    /**
-//     * Test of setEmail method, of class Contacto.
-//     */
-//    @Test
-//    public void testSetEmail() {
-//    }
-//
-//    /**
-//     * Test of setDireccionPostal method, of class Contacto.
-//     */
-//    @Test
-//    public void testSetDireccionPostal() {
-//    }
-//
-//    /**
-//     * Test of setNumeroTelefonico method, of class Contacto.
-//     */
-//    @Test
-//    public void testSetNumeroTelefonico() {
-//    }
-//
-//    /**
-//     * Test of validateEmail method, of class Contacto.
-//     */
-//    @Test
-//    public void testValidateEmail() {
-//        
-//    }
+    @Test
+    public void testValidateEmailFlase() {
+
+        boolean actual = wrongContact.validateEmail(wrongContact.getEmail());
+        
+        assertFalse(actual);
+    }
+    
+    @Test
+    public void testValidateEmailTrue() {
+
+        boolean actual = rightContact.validateEmail(rightContact.getEmail());
+        
+        assertTrue(actual);
+    }
     
         @Test
     public void testValidateNumerFalse() {
 
-        boolean esperado = false;
         boolean actual = wrongContact.validateNumer(wrongContact.getNumeroTelefonico());
         
-        assertEquals(esperado, actual);
+            assertFalse(actual);
     }
 
     @Test
@@ -127,7 +50,7 @@ public class ContactoTest {
         boolean esperado = true;
         boolean actual = rightContact.validateNumer(rightContact.getNumeroTelefonico());
         
-        assertEquals(esperado, actual);
+        assertTrue(actual);
     }
 
 
@@ -137,16 +60,15 @@ public class ContactoTest {
         boolean esperado = true;
         boolean actual = rightContact.validateNames(rightContact.getNombre());
         
-        assertEquals(esperado, actual);
+        assertTrue(actual);
     }
     
     @Test
     public void testValidateNamesFalse() {
 
-        boolean esperado = false;
         boolean actual = wrongContact.validateNames(wrongContact.getNombre());
         
-        assertEquals(esperado, actual);
+         assertFalse(actual);
     }
     
 }
