@@ -14,8 +14,8 @@ import static org.junit.Assert.*;
  */
 public class ContactoTest {
     
-    Contacto rightContact = new Contacto("Fernandito","12345678", "fernandito@gmail.com");
-    Contacto wrongContact = new Contacto("12345678","Fernandito", "123.@fdss,com");
+    private final Contacto rightContact = new Contacto("Fernandito","12345678", "fernandito@gmail.com");
+    private final Contacto wrongContact = new Contacto("12345678","Fernandito", "123.@fdss,com");
     
     public ContactoTest() {
     }
