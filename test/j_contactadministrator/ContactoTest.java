@@ -14,9 +14,12 @@ import static org.junit.Assert.*;
  */
 public class ContactoTest {
     
+    Contacto rightContact = new Contacto("Fernandito","12345678", "fernandito@gmail.com");
+    Contacto wrongContact = new Contacto("12345678","Fernandito", "123.@fdss,com");
+    
     public ContactoTest() {
     }
-
+    
 //    /**
 //     * Test of getNombre method, of class Contacto.
 //     */
@@ -111,18 +114,18 @@ public class ContactoTest {
     
         @Test
     public void testValidateNumerFalse() {
-        Contacto c = new Contacto("Fernandito","Fernandito", "fernandito@gmail.com");
+
         boolean esperado = false;
-        boolean actual = c.validateNumer(c.getNumeroTelefonico());
+        boolean actual = wrongContact.validateNumer(wrongContact.getNumeroTelefonico());
         
         assertEquals(esperado, actual);
     }
 
     @Test
     public void testValidateNumerTrue() {
-        Contacto c = new Contacto("Fernandito","12345678", "fernandito@gmail.com");
+
         boolean esperado = true;
-        boolean actual = c.validateNumer(c.getNumeroTelefonico());
+        boolean actual = rightContact.validateNumer(rightContact.getNumeroTelefonico());
         
         assertEquals(esperado, actual);
     }
@@ -130,18 +133,18 @@ public class ContactoTest {
 
     @Test
     public void testValidateNamesTrue() {
-        Contacto c = new Contacto("Fernandito","12345678", "fernandito@gmail.com");
+        
         boolean esperado = true;
-        boolean actual = c.validateNames(c.getNombre());
+        boolean actual = rightContact.validateNames(rightContact.getNombre());
         
         assertEquals(esperado, actual);
     }
     
     @Test
     public void testValidateNamesFalse() {
-        Contacto c = new Contacto("12345678","12345678", "fernandito@gmail.com");
+
         boolean esperado = false;
-        boolean actual = c.validateNames(c.getNombre());
+        boolean actual = wrongContact.validateNames(wrongContact.getNombre());
         
         assertEquals(esperado, actual);
     }
