@@ -22,12 +22,12 @@ public class BuscadorCSV extends Thread{
     public void run() {
 
         while (continuador) {
-            importFile();
+            importFileAndDelete();
             sleeper();
         }
     }
 
-    private void importFile() {
+    private void importFileAndDelete() {
         //---------------------------IMPORTACION--------------------------------
         //Se crea una instancia de la clase encargada de la persistencia de datos
         AgendaDAOFactory factory = new AgendaDAOFactory();
