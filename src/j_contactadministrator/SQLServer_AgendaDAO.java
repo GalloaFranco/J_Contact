@@ -42,7 +42,7 @@ public class SQLServer_AgendaDAO implements AgendaDAO {
             stmt.setString(5, c.getDireccionPostal());
             stmt.setString(6,c.getNumeroTelefonico());
             
-            if(c.getEmail() != null && c.getNumeroTelefonico() != null && c.getNombre()!= null && c.getApellido() != null){
+            if(nullChecker(c)){
             stmt.executeUpdate();
             } else {
                 System.err.println("Algunos datos del contacto son nulos, reviselo en :"
@@ -54,6 +54,12 @@ public class SQLServer_AgendaDAO implements AgendaDAO {
         }
         
         }
+/*
+    ****************************************************************************
+    */
+    private static boolean nullChecker(Contacto c) {
+        return c.getEmail() != null && c.getNumeroTelefonico() != null && c.getNombre()!= null && c.getApellido() != null;
+    }
     
 /*
     ****************************************************************************
