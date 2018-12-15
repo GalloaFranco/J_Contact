@@ -28,7 +28,7 @@ public interface AgendaDAO {
     public void ordenarAgenda();
     
     //METODO DE BUSQUEDA POR NOMBRE
-    public void getByName(String nom);
+    public String getByName(String nom);
     
     //METODO QUE NOS MUESTRA TODA LA LISTA DE CONTACTOS
     public void mostrar();

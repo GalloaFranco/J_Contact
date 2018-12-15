@@ -165,7 +165,7 @@ public class  JavaDB_AgendaDAO implements AgendaDAO {
     ****************************************************************************
     */
     @Override
-    public void getByName(String nom) {
+    public String getByName(String nom) {
         try(Connection con = Singleton_ConexionDB.getConexionClass().getConexionDB();
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(GETALL);){
@@ -199,11 +199,12 @@ public class  JavaDB_AgendaDAO implements AgendaDAO {
             
             }
             }
-             System.out.println(sb);
+             return sb.toString();
            
         } catch (SQLException ex) {
             ex.getMessage();
         }
+         return null;
     }
 
     }
