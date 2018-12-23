@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>Singleton_ConexionDB.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;J_ContactAdministrator&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">j_contactadministrator</a> &gt; <span class="el_source">Singleton_ConexionDB.java</span></div><h1>Singleton_ConexionDB.java</h1><pre class="source lang-java linenums">/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package j_contactadministrator;
+
+import java.sql.*;
+import org.apache.derby.jdbc.ClientDriver;
+
+/**
+ *
+ * @author Franco Gallo
+ */
+public class Singleton_ConexionDB {
+
+    //CONSTANTE QUE INSTANCIA UNA NUEVA CONEXIONDB
+<span class="nc" id="L18">    private static final Singleton_ConexionDB INSTANCE = new Singleton_ConexionDB();</span>
+
+    /*
+    ****************************************************************************
+     */
+    //CONSTRUCTOR PRIVADO PARA RESPETAR EL PATRON SINGLETON
+<span class="nc" id="L24">    private Singleton_ConexionDB() {</span>
+        try {
+<span class="nc" id="L26">            DriverManager.registerDriver(new ClientDriver());</span>
+
+<span class="nc" id="L28">        } catch (SQLException se) {</span>
+<span class="nc" id="L29">            System.err.println(&quot;Error al cargar el driver&quot;);</span>
+<span class="nc" id="L30">            se.getMessage();</span>
+<span class="nc" id="L31">        }</span>
+<span class="nc" id="L32">    }</span>
+
+    /*
+    ****************************************************************************
+     */
+    public static Singleton_ConexionDB getConexionClass() {
+<span class="nc" id="L38">        return INSTANCE;</span>
+
+    }
+
+    /*
+    ****************************************************************************
+     */
+    public Connection getConexionDB() throws SQLException {
+
+<span class="nc" id="L47">        final String user = &quot;Franco&quot;;</span>
+<span class="nc" id="L48">        final String password = &quot;Franco&quot;;</span>
+
+<span class="nc" id="L50">        try (</span>
+<span class="nc" id="L51">                Connection con = DriverManager.getConnection(&quot;jdbc:derby://localhost:1527/J_ContactDB&quot;, user, password);</span>
+<span class="nc" id="L52">                Statement stmt = con.createStatement();</span>
+<span class="nc" id="L53">                ResultSet rs = stmt.executeQuery(&quot;SELECT 1 FROM SYSIBM.SYSDUMMY1&quot;);) {</span>
+
+<span class="nc" id="L55">            return con;</span>
+<span class="nc bnc" id="L56" title="All 24 branches missed.">        } catch (SQLException se) {</span>
+<span class="nc" id="L57">            System.err.println(&quot;Error al conectar con la base de datos&quot;);</span>
+<span class="nc" id="L58">            throw se;</span>
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>

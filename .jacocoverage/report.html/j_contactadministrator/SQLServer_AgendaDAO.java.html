@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>SQLServer_AgendaDAO.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;J_ContactAdministrator&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">j_contactadministrator</a> &gt; <span class="el_source">SQLServer_AgendaDAO.java</span></div><h1>SQLServer_AgendaDAO.java</h1><pre class="source lang-java linenums">/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package j_contactadministrator;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+/**
+ *
+ * @author Franco
+ */
+<span class="fc" id="L20">public class SQLServer_AgendaDAO implements AgendaDAO {</span>
+    
+    static final String INSERT = &quot;INSERT INTO CONTACTOS(NOMBRE,APELLIDO,ALIAS,MAIL,DIRECCION,NUMERO) VALUES(?,?,?,?,?,?)&quot;;
+    static final String DELETE = &quot;DELETE FROM CONTACTOS WHERE NOMBRE = ?&quot;;
+    static final String DELETEALL = &quot;DELETE FROM CONTACTOS&quot;;
+    static final String UPDATE = &quot;UPDATE CONTACTOS SET NOMBRE = ?, APELLIDO = ?, ALIAS = ?, MAIL = ?, DIRECCION = ?, NUMERO = ? WHERE NOMBRE = ?&quot;;
+    static final String GETALL = &quot;SELECT * FROM CONTACTOS&quot;;
+     
+    
+/*
+    ****************************************************************************
+    */   
+    @Override
+    public void addContacto(Contacto c) {
+        
+<span class="pc" id="L35">        try (Connection con = Singleton_ConexionSQLServer.getSingleton_ConexionSQL().getConexionSQL();</span>
+<span class="fc" id="L36">            PreparedStatement stmt = con.prepareStatement(INSERT);){</span>
+            
+<span class="fc" id="L38">            stmt.setString(1, c.getNombre());</span>
+<span class="fc" id="L39">            stmt.setString(2,c.getApellido());</span>
+<span class="fc" id="L40">            stmt.setString(3, c.getAlias());</span>
+<span class="fc" id="L41">            stmt.setString(4,c.getEmail());</span>
+<span class="fc" id="L42">            stmt.setString(5, c.getDireccionPostal());</span>
+<span class="fc" id="L43">            stmt.setString(6,c.getNumeroTelefonico());</span>
+            
+<span class="pc bpc" id="L45" title="1 of 2 branches missed.">            if(nullChecker(c)){</span>
+<span class="fc" id="L46">            stmt.executeUpdate();</span>
+            } else {
+<span class="nc" id="L48">                System.err.println(&quot;Algunos datos del contacto son nulos, reviselo en :&quot;</span>
+<span class="nc" id="L49">                + c.getNombre());</span>
+            }
+        
+<span class="pc bpc" id="L52" title="12 of 16 branches missed.">        } catch (SQLException ex) {</span>
+<span class="nc" id="L53">            Logger.getLogger(JavaDB_AgendaDAO.class.getName()).log(Level.SEVERE, null, ex);</span>
+<span class="fc" id="L54">        }</span>
+        
+<span class="fc" id="L56">        }</span>
+/*
+    ****************************************************************************
+    */
+    private static boolean nullChecker(Contacto c) {
+<span class="pc bpc" id="L61" title="4 of 8 branches missed.">        return c.getEmail() != null &amp;&amp; c.getNumeroTelefonico() != null &amp;&amp; c.getNombre()!= null &amp;&amp; c.getApellido() != null;</span>
+    }
+    
+/*
+    ****************************************************************************
+    */
+    @Override
+    public void modificarContacto(String nombre, String apellido, String alias, String email, String direccionpostal,
+    String numerotelefonico, String indice)throws InvalidEmailException, InvalidTelephoneNumberException, InvalidNameException {
+            
+<span class="fc" id="L71">            Contacto contacto = new Contacto(nombre, apellido, alias, email, direccionpostal, numerotelefonico);</span>
+            
+<span class="pc" id="L73">        try (Connection con = Singleton_ConexionSQLServer.getSingleton_ConexionSQL().getConexionSQL();</span>
+<span class="fc" id="L74">            PreparedStatement stmt = con.prepareStatement(UPDATE);){</span>
+            
+<span class="fc" id="L76">            stmt.setString(1,contacto.getNombre());</span>
+<span class="fc" id="L77">            stmt.setString(2,contacto.getApellido());</span>
+<span class="fc" id="L78">            stmt.setString(3,contacto.getAlias());</span>
+<span class="fc" id="L79">            stmt.setString(4,contacto.getEmail());</span>
+<span class="fc" id="L80">            stmt.setString(5,contacto.getDireccionPostal());</span>
+<span class="fc" id="L81">            stmt.setString(6,contacto.getNumeroTelefonico());</span>
+<span class="fc" id="L82">            stmt.setString(7,indice.toUpperCase());</span>
+<span class="fc" id="L83">            stmt.executeUpdate();</span>
+<span class="fc" id="L84">            System.out.println(&quot;Se modifico el contacto!&quot;);</span>
+        
+<span class="pc bpc" id="L86" title="12 of 16 branches missed.">        } catch (SQLException ex) {</span>
+<span class="nc" id="L87">            Logger.getLogger(JavaDB_AgendaDAO.class.getName()).log(Level.SEVERE, null, ex);</span>
+<span class="fc" id="L88">        }</span>
+<span class="fc" id="L89">        }</span>
+    
+/*
+    ****************************************************************************
+    */
+    @Override
+    public void eliminarContacto(String c) {
+<span class="pc" id="L96">        try(Connection con = Singleton_ConexionSQLServer.getSingleton_ConexionSQL().getConexionSQL();</span>
+<span class="fc" id="L97">            PreparedStatement stmt = con.prepareStatement(DELETE);){</span>
+        
+<span class="fc" id="L99">        stmt.setString(1, c.toUpperCase());</span>
+<span class="fc" id="L100">        stmt.executeUpdate();</span>
+<span class="pc bpc" id="L101" title="12 of 16 branches missed.">        }catch(SQLException se){</span>
+<span class="nc" id="L102">        se.getMessage();</span>
+<span class="fc" id="L103">        }   </span>
+<span class="fc" id="L104">        }</span>
+/*
+    ****************************************************************************
+    */
+    @Override
+    public void eliminarLista() {
+<span class="nc" id="L110">        try(Connection con = Singleton_ConexionSQLServer.getSingleton_ConexionSQL().getConexionSQL();</span>
+<span class="nc" id="L111">            PreparedStatement stmt = con.prepareStatement(DELETEALL);){</span>
+        
+<span class="nc" id="L113">        stmt.executeUpdate();</span>
+<span class="nc" id="L114">            System.out.println(&quot;Lista eliminada, te desconectaste del mundo!&quot;);</span>
+<span class="nc bnc" id="L115" title="All 16 branches missed.">        }catch(SQLException se){</span>
+<span class="nc" id="L116">        se.getMessage();</span>
+<span class="nc" id="L117">        }   </span>
+<span class="nc" id="L118">        }</span>
+/*
+    ****************************************************************************
+    */
+    @Override
+    public void mostrar() {
+<span class="nc" id="L124">        try(Connection con = Singleton_ConexionSQLServer.getSingleton_ConexionSQL().getConexionSQL();</span>
+<span class="nc" id="L125">            Statement stmt = con.createStatement();</span>
+<span class="nc" id="L126">            ResultSet rs = stmt.executeQuery(GETALL);){</span>
+            
+<span class="nc" id="L128">            System.out.println(&quot;----------DATOS AlMACENADOS EN SQL Server----------&quot;);</span>
+            
+<span class="nc" id="L130">            StringBuilder sb = new StringBuilder();</span>
+
+<span class="nc bnc" id="L132" title="All 2 branches missed.">            while(rs.next()){</span>
+<span class="nc" id="L133">            String nombre = rs.getString(&quot;NOMBRE&quot;);</span>
+<span class="nc" id="L134">            String apellido = rs.getString(&quot;APELLIDO&quot;);</span>
+<span class="nc" id="L135">            String alias = rs.getString(&quot;ALIAS&quot;);</span>
+<span class="nc" id="L136">            String mail = rs.getString(&quot;MAIL&quot;);</span>
+<span class="nc" id="L137">            String direccion = rs.getString(&quot;DIRECCION&quot;);</span>
+<span class="nc" id="L138">            String numero = rs.getString(&quot;NUMERO&quot;);</span>
+                
+<span class="nc" id="L140">                sb.append(nombre);</span>
+<span class="nc" id="L141">                sb.append(&quot;\n&quot;);</span>
+<span class="nc" id="L142">                sb.append(apellido);</span>
+<span class="nc" id="L143">                sb.append(&quot;\n&quot;);</span>
+<span class="nc" id="L144">                sb.append(alias);</span>
+<span class="nc" id="L145">                sb.append(&quot;\n&quot;);</span>
+<span class="nc" id="L146">                sb.append(mail);</span>
+<span class="nc" id="L147">                sb.append(&quot;\n&quot;);</span>
+<span class="nc" id="L148">                sb.append(direccion);</span>
+<span class="nc" id="L149">                sb.append(&quot;\n&quot;);</span>
+<span class="nc" id="L150">                sb.append(numero);</span>
+<span class="nc" id="L151">                sb.append(&quot;\n&quot;);</span>
+<span class="nc" id="L152">                sb.append(&quot;\n&quot;);</span>
+<span class="nc" id="L153">            }</span>
+<span class="nc" id="L154">            System.out.println(sb);</span>
+
+<span class="nc bnc" id="L156" title="All 24 branches missed.">        } catch (SQLException ex) {</span>
+<span class="nc" id="L157">            ex.getMessage();</span>
+<span class="nc" id="L158">        }</span>
+<span class="nc" id="L159">    }</span>
+/*
+    ****************************************************************************
+    */
+    @Override
+    public void exportarLista() {
+<span class="nc" id="L165">        throw new UnsupportedOperationException(&quot;Not supported yet.&quot;); //To change body of generated methods, choose Tools | Templates.</span>
+    }
+    @Override
+    public void ordenarAgenda() {
+<span class="nc" id="L169">        throw new UnsupportedOperationException(&quot;Not supported yet.&quot;); //To change body of generated methods, choose Tools | Templates.</span>
+    }
+/*
+    ****************************************************************************
+    */
+    @Override
+    public String getByName(String nom) {
+<span class="pc" id="L176">        try(Connection con = Singleton_ConexionSQLServer.getSingleton_ConexionSQL().getConexionSQL();</span>
+<span class="fc" id="L177">            Statement stmt = con.createStatement();</span>
+<span class="fc" id="L178">            ResultSet rs = stmt.executeQuery(GETALL);){</span>
+            
+<span class="fc" id="L180">            StringBuilder sb = new StringBuilder();</span>
+            
+<span class="fc" id="L182">            System.out.println(&quot;DATOS DEL CONTACTO:&quot;);</span>
+<span class="fc bfc" id="L183" title="All 2 branches covered.">            while(rs.next()){</span>
+                
+<span class="fc" id="L185">            String nombre = rs.getString(&quot;NOMBRE&quot;);</span>
+<span class="fc" id="L186">            String apellido = rs.getString(&quot;APELLIDO&quot;);</span>
+<span class="fc" id="L187">            String alias = rs.getString(&quot;ALIAS&quot;);</span>
+<span class="fc" id="L188">            String mail = rs.getString(&quot;MAIL&quot;);</span>
+<span class="fc" id="L189">            String direccion = rs.getString(&quot;DIRECCION&quot;);</span>
+<span class="fc" id="L190">            String numero = rs.getString(&quot;NUMERO&quot;);</span>
+            
+<span class="fc bfc" id="L192" title="All 2 branches covered.">            if(nombre.equalsIgnoreCase(nom)){</span>
+<span class="fc" id="L193">                sb.append(nombre);</span>
+<span class="fc" id="L194">                sb.append(&quot;\n&quot;);</span>
+<span class="fc" id="L195">                sb.append(apellido);</span>
+<span class="fc" id="L196">                sb.append(&quot;\n&quot;);</span>
+<span class="fc" id="L197">                sb.append(alias);</span>
+<span class="fc" id="L198">                sb.append(&quot;\n&quot;);</span>
+<span class="fc" id="L199">                sb.append(mail);</span>
+<span class="fc" id="L200">                sb.append(&quot;\n&quot;);</span>
+<span class="fc" id="L201">                sb.append(direccion);</span>
+<span class="fc" id="L202">                sb.append(&quot;\n&quot;);</span>
+<span class="fc" id="L203">                sb.append(numero);</span>
+<span class="fc" id="L204">                sb.append(&quot;\n&quot;);</span>
+<span class="fc" id="L205">                sb.append(&quot;\n&quot;);</span>
+            
+            }
+<span class="fc" id="L208">            }</span>
+<span class="fc" id="L209">             return sb.toString();</span>
+           
+<span class="pc bpc" id="L211" title="18 of 24 branches missed.">        } catch (SQLException ex) {</span>
+<span class="nc" id="L212">            ex.getMessage();</span>
+        }
+<span class="nc" id="L214">        return null;</span>
+    }
+    
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>

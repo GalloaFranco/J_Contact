@@ -22,82 +22,55 @@ import static org.junit.Assert.*;
 public class SQLServer_AgendaDAOTest {
     
     SQLServer_AgendaDAO testSchedule;
+    Contacto testContact; 
     
     public SQLServer_AgendaDAOTest() {
     }
     
     @Before
-    public void setUp() {
+    public void setUp() throws InvalidEmailException,InvalidTelephoneNumberException,InvalidNameException {
         testSchedule = new SQLServer_AgendaDAO();
+        testContact = new Contacto("Testito", "Eltesteado", "Test", "Testito@test.com", "ambienteTestin10", "351616456");
     }
 
 
     @Test
     public void testAddContacto() {
-        try {
-            Contacto testContact = new Contacto("Testito", "Eltesteado", "Test", "Testito@test.com", "ambienteTestin10", "351616456");
-            testSchedule.addContacto(testContact);
-             
-            Pattern pattern = Pattern.compile("(TESTITO)");
-            Matcher matcher =  pattern.matcher(testSchedule.getByName("TESTITO"));
-           
-            Assert.assertEquals(false , matcher.matches());
-            
-            testSchedule.eliminarContacto(testContact.getNombre());
-            
-        } catch (InvalidEmailException | InvalidTelephoneNumberException | InvalidNameException ex) {
-            Logger.getLogger(SQLServer_AgendaDAOTest.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
+
+        testSchedule.addContacto(testContact);
+
+        Pattern pattern = Pattern.compile("TESTITO");
+        Matcher matcher = pattern.matcher(testSchedule.getByName("TESTITO"));
+
+        assertTrue(matcher.find());
+
+        testSchedule.eliminarContacto(testContact.getNombre());
     }
 
-    /**
-     * Test of modificarContacto method, of class SQLServer_AgendaDAO.
-     */
     @Test
     public void testModificarContacto() throws Exception {
+        
+        testSchedule.addContacto(testContact);
+        testSchedule.modificarContacto("Testitoo", "Eltestiao", "Test", "Testito@gmail.com", "ambienteTestin10", "3516163584", "Testito");
+        
+        Pattern pattern = Pattern.compile("TESTITOO");
+        Matcher matcher = pattern.matcher(testSchedule.getByName("TESTITOO"));
+        
+        assertTrue(matcher.find());
+
+        testSchedule.eliminarContacto(testContact.getNombre());
     }
 
-    /**
-     * Test of eliminarContacto method, of class SQLServer_AgendaDAO.
-     */
     @Test
     public void testEliminarContacto() {
+        
+        testSchedule.addContacto(testContact);
+        testSchedule.eliminarContacto(testContact.getNombre());
+
+        Pattern pattern = Pattern.compile("TESTITO");
+        Matcher matcher = pattern.matcher(testSchedule.getByName("TESTITO"));
+        
+        assertFalse(matcher.find());
     }
 
-    /**
-     * Test of eliminarLista method, of class SQLServer_AgendaDAO.
-     */
-    @Test
-    public void testEliminarLista() {
-    }
-
-    /**
-     * Test of mostrar method, of class SQLServer_AgendaDAO.
-     */
-    @Test
-    public void testMostrar() {
-    }
-
-    /**
-     * Test of exportarLista method, of class SQLServer_AgendaDAO.
-     */
-    @Test
-    public void testExportarLista() {
-    }
-
-    /**
-     * Test of ordenarAgenda method, of class SQLServer_AgendaDAO.
-     */
-    @Test
-    public void testOrdenarAgenda() {
-    }
-
-    /**
-     * Test of getByName method, of class SQLServer_AgendaDAO.
-     */
-    @Test
-    public void testGetByName() {
-    }
-    
 }
